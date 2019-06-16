@@ -21,7 +21,7 @@ describe('App', () => {
     await flushPromises();
 
     await wrapper.vm.$validator.validate('first_name')
-    expect(wrapper.vm.errors.has('applicant[first_name]')).toBe(false);
+    expect(wrapper.vm.errors.has('first_name')).toBe(false);
   });
 
   it('framework requires a value', async () => {
