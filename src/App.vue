@@ -1,28 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <form @submit="submit">
+      <Input />
+      <Radio />
+
+      <button>Submit</button>
+    </form>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Input from './components/Input.vue'
+import Radio from './components/Radio.vue'
 
 export default {
   name: 'app',
+  $_veeValidate: {
+    validator: 'new',
+  },
   components: {
-    HelloWorld
-  }
+    Input,
+    Radio
+  },
+  methods: {
+    submit(e) {
+      e.preventDefault();
+
+      this.$validator.validateAll().then((result) => {
+        if (result){
+          alert("All Good!");
+        } else {
+          alert("Errors!");
+        }
+      });
+    },
+  },
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
