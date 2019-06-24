@@ -9,7 +9,8 @@ localVue.use(VeeValidate, { inject: false });
 describe('App', () => {
   const wrapper = mount(App, {
     sync: false,
-    localVue
+    localVue,
+    attachToDocument: true
   });
 
   it('first_name requires a value', async () => {
@@ -29,10 +30,11 @@ describe('App', () => {
     expect(wrapper.vm.errors.has('framework')).toBe(true);
 
     const radio = wrapper.find('#vue');
-    radio.setChecked(true);
+    radio.element.checked = true;
+    radio.trigger('change');
     await flushPromises();
 
-    await wrapper.vm.$validator.validate('framework')
+    await wrapper.vm.$validator.validate('framework');
     expect(wrapper.vm.errors.has('framework')).toBe(false);
   });
 });
